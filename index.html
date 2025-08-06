@@ -1,38 +1,88 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+<head>  
+  <!-- ✅ Theme color for browser UI -->
+  <meta name="theme-color" content="#EDC52F">
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
+  <!-- ✅ Base HREF for subfolder deployment -->
+  <!-- Must start AND end with a slash -->
+  <base href="/sportsx2/" />
 
   <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="description" content="Sportx - All sports products and accessories across India.">
 
-  <!-- iOS meta tags & icons -->
+  <!-- ✅ iOS & PWA meta -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="reallands">
+  <meta name="apple-mobile-web-app-title" content="Sportx">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
+  <!-- ✅ Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>reallands</title>
-  <link rel="manifest" href="manifest.json">
+  <title>
+    Sportx | All Sports | Sports Products | Hyderabad Sports | All India Sports | Cricket | Football
+  </title>
+
+  <!-- ✅ Loader Styles -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #EDC52F; /* Page background */
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #EDC52F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #333;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
+
 <body>
+  <!-- ✅ Full-page Loader -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ✅ Flutter Web Bootstrap -->
   <script src="flutter_bootstrap.js" async></script>
+
+  <!-- ✅ Remove Loader When Flutter App Loads -->
+  <script>
+    window.addEventListener('load', function () {
+      const observer = new MutationObserver(() => {
+        const canvas = document.querySelector('flt-glass-pane, flutter-view');
+        if (canvas) {
+          document.getElementById('loader')?.remove();
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  </script>
 </body>
 </html>
